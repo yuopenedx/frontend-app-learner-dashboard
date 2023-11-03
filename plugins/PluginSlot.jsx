@@ -3,8 +3,11 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { Spinner } from '@edx/paragon';
 import PropTypes from 'prop-types';
+import { logError } from '@edx/frontend-platform/logging';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { AppContext } from '@edx/frontend-platform/react';
+
+import { hasDuplicateUrls } from './data/utils';
 
 // import { usePluginSlot } from './data/hooks';
 import {
@@ -27,11 +30,20 @@ const PluginSlot = forwardRef(({
         keepDefault: true,
         plugins: [
           {
-            url: `https://profile-aperturepluginpoc.sandbox.edx.org/u/${authenticatedUser.username}/plugin`,
+            url: 'http://localhost:1995/u/edx/plugin/1',
             type: IFRAME_PLUGIN,
           },
           {
-            url: 'http://localhost:8081/plugin2',
+            url: 'http://localhost:4500/info',
+            type: IFRAME_PLUGIN,
+          },
+        ],
+      },
+      example2: {
+        keepDefault: true,
+        plugins: [
+          {
+            url: 'http://localhost:1995/u/edx/plugin/1',
             type: IFRAME_PLUGIN,
           },
         ],
@@ -39,7 +51,7 @@ const PluginSlot = forwardRef(({
     },
   };
 
-  const { plugins, keepDefault } = dummyConfig.plugins.example;
+  const { plugins, keepDefault } = dummyConfig.plugins[id];
 
   const { fallback } = pluginProps;
 
@@ -54,6 +66,10 @@ const PluginSlot = forwardRef(({
   }
 
   let finalChildren = [];
+  if (hasDuplicateUrls(plugins)) {
+    logError('Duplicate URLs in a single plugin slot. Each plugin should have a unique URL. If you want to to use the same plugin in two spots, consider adding another PluginSlot.');
+    // throw new Error('Duplicate URLs in a single plugin slot. Each plugin should have a unique URL. If you want to to use the same plugin in two spots, consider adding another PluginSlot.');
+  }
   if (plugins.length > 0) {
     if (keepDefault) {
       finalChildren.push(children);

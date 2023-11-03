@@ -16,7 +16,7 @@ import {
 } from './data/hooks';
 import { pluginConfigShape } from './data/shapes';
 
-/**
+/*
  * Feature policy for iframe, allowing access to certain courseware-related media.
  *
  * We must use the wildcard (*) origin for each feature, as courseware content
@@ -30,6 +30,7 @@ export const IFRAME_FEATURE_POLICY = (
   'fullscreen; microphone *; camera *; midi *; geolocation *; encrypted-media *'
 );
 
+// eslint-disable-next-line react/function-component-definition
 export default function PluginContainerIframe({
   config, fallback, className, ...props
 }) {

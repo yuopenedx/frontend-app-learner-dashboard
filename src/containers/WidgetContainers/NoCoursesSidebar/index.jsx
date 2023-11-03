@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // import RecommendationsPanel from 'widgets/RecommendationsPanel';
@@ -7,6 +7,7 @@ import PluginSlot from '../../../../plugins/PluginSlot';
 
 export const WidgetSidebar = ({ setSidebarShowing }) => {
   const { inRecommendationsVariant, isExperimentActive } = hooks.useShowRecommendationsFooter();
+  const [showPlugin, setShowPlugin] = useState(false);
 
   if (!inRecommendationsVariant && isExperimentActive) {
     setSidebarShowing(true);
@@ -23,11 +24,45 @@ export const WidgetSidebar = ({ setSidebarShowing }) => {
               title: 'example plugins',
             }}
             style={{
+              height: 700,
+            }}
+          />
+          {/* <PluginSlot
+            id="example2" // this is how PluginSlot knows which set of plugin URLs to grab from JS config
+            className="d-flex flex-column"
+            pluginProps={{
+              className: 'flex-grow-1',
+              title: 'example plugins',
+            }}
+            style={{
               height: 400,
             }}
-          >
-            <div key="default">This is default plugin content.</div>
-          </PluginSlot>
+          /> */}
+          {/* <button type="button" onClick={() => setShowPlugin(prev => !prev)}>Click me</button>
+          {showPlugin && (
+            <PluginSlot
+              id="example" // this is how PluginSlot knows which set of plugin URLs to grab from JS config
+              className="d-flex flex-column"
+              pluginProps={{
+                className: 'flex-grow-1',
+                title: 'example plugins',
+              }}
+              style={{
+                height: 700,
+              }}
+            />
+            // <PluginSlot
+            //   id="example2" // this is how PluginSlot knows which set of plugin URLs to grab from JS config
+            //   className="d-flex flex-column"
+            //   pluginProps={{
+            //     className: 'flex-grow-1',
+            //     title: 'example plugins',
+            //   }}
+            //   style={{
+            //     height: 400,
+            //   }}
+            // />
+          )} */}
         </div>
       </div>
     );

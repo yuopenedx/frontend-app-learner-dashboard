@@ -1,6 +1,6 @@
-// export {
-//   usePluginSlot,
-// } from './data/hooks';
+export {
+  usePluginSlot,
+} from './data/hooks';
 export {
   default as Plugin,
 } from './Plugin';

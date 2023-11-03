@@ -7,7 +7,6 @@ import PluginSlot from '../../../../plugins/PluginSlot';
 
 export const WidgetSidebar = ({ setSidebarShowing }) => {
   const { inRecommendationsVariant, isExperimentActive } = hooks.useShowRecommendationsFooter();
-
   if (!inRecommendationsVariant && isExperimentActive) {
     setSidebarShowing(true);
 
@@ -26,6 +25,19 @@ export const WidgetSidebar = ({ setSidebarShowing }) => {
               height: 700,
             }}
           />
+          {/**
+             <PluginSlot
+              id="example2" // this is how PluginSlot knows which set of plugin URLs to grab from JS config
+              className="d-flex flex-column"
+              pluginProps={{
+                className: 'flex-grow-1',
+                title: 'example plugins',
+              }}
+              style={{
+                height: 400,
+              }}
+            />
+            */}
         </div>
       </div>
     );
