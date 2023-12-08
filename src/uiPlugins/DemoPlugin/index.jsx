@@ -13,10 +13,6 @@ const plugin = {
             content: '******* this is a string we put in',
           },
         },
-        {
-          op: UiChangeOperation.Hide,
-          widgetId: 'my-courses',
-        },
       ],
     };
   },

@@ -13,7 +13,7 @@ import LoadingView from './LoadingView';
 import DashboardLayout from './DashboardLayout';
 import hooks from './hooks';
 import './index.scss';
-import { DefaultUiSlot, UiPluginsContext, UiSlot } from '../../uiPlugins/pluginSlot';
+import { UiPluginsContext, UiSlot } from '../../uiPlugins/pluginSlot';
 import DemoPlugin from '../../uiPlugins/DemoPlugin';
 
 const defaultComponent = [{ id: 'my-courses', priority: 50, content: <CourseList /> }];
@@ -26,6 +26,7 @@ export const Dashboard = () => {
   const initIsPending = reduxHooks.useRequestIsPending(RequestKeys.initialize);
   const showSelectSessionModal = reduxHooks.useShowSelectSessionModal();
 
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
   const enabledPlugins = [
     DemoPlugin,
   ];

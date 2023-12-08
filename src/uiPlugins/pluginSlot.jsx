@@ -44,13 +44,15 @@ export const UiPluginsContext = React.createContext([]);
 
 export const UiSlot = ({ defaultContents, slotId, renderWidget }) => {
   const enabledPlugins = React.useContext(UiPluginsContext);
-  console.log(enabledPlugins);
   const contents = React.useMemo(() => {
     const newContents = [...defaultContents];
     enabledPlugins.forEach(plugin => {
-      const changes = plugin.getUiSlotChanges();
+      const changes = plugin.getUiSlotChanges(); // Optional: Pass in any app-specific context that the plugin may want
       const slotChanges = changes[slotId] ?? [];
-      console.log(slotChanges);
+
+      // TODO: above could be condensed to:
+      // const changes = plugin.getUiSlotChanges()[slotId] ?? [];
+      // below slotChanges would be changed to changes
       slotChanges.forEach(change => {
         if (change.op === UiChangeOperation.Insert) {
           newContents.push(change.widget);
@@ -114,6 +116,7 @@ export const UiSlot = ({ defaultContents, slotId, renderWidget }) => {
       {contents.map((c) => (c.hidden ? null
         : c.wrappers ? (
         // TODO: would be nice to understand how the below logic is able to wrap widgets
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
           c.wrappers.reduce((widget, wrapper) => React.createElement(wrapper, { widget, key: c.id }), renderWidget(c))
         )
           : renderWidget(c)))}
