@@ -21,17 +21,37 @@ export const defaultRender = (widget) => (
   <React.Fragment key={widget.id}>{widget.content}</React.Fragment>
 );
 
-/** Context which makes the list of enabled plugins available to the <UISlot> components below it in the React tree */
+export const DefaultUiSlot = (props) => (
+  <UiSlot
+    slotId={props.slotId}
+    renderWidget={defaultRender}
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    defaultContents={props.children ? [{ id: 'content', priority: 50, content: <>{props.children}</> }] : []}
+  />
+);
+
+DefaultUiSlot.propTypes = {
+  slotId: PropTypes.string.isRequired,
+  children: PropTypes.node,
+};
+
+DefaultUiSlot.defaultProps = {
+  children: null,
+};
+
+/** Context which makes the list of enabled plugins available to the <UiSlot> components below it in the React tree */
 export const UiPluginsContext = React.createContext([]);
 
-export const UISlot = ({ defaultContents, slotId, renderWidget }) => {
+export const UiSlot = ({ defaultContents, slotId, renderWidget }) => {
   const enabledPlugins = React.useContext(UiPluginsContext);
-
+  console.log(enabledPlugins);
   const contents = React.useMemo(() => {
     const newContents = [...defaultContents];
     enabledPlugins.forEach(plugin => {
       const changes = plugin.getUiSlotChanges();
-      changes[slotId]?.forEach(change => {
+      const slotChanges = changes[slotId] ?? [];
+      console.log(slotChanges);
+      slotChanges.forEach(change => {
         if (change.op === UiChangeOperation.Insert) {
           newContents.push(change.widget);
         } else if (change.op === UiChangeOperation.Hide) {
@@ -101,12 +121,12 @@ export const UISlot = ({ defaultContents, slotId, renderWidget }) => {
   );
 };
 
-UISlot.propTypes = {
+UiSlot.propTypes = {
   defaultContents: PropTypes.shape([]),
   slotId: PropTypes.string.isRequired,
   renderWidget: PropTypes.func.isRequired,
 };
 
-UISlot.defaultProps = {
+UiSlot.defaultProps = {
   defaultContents: [],
 };

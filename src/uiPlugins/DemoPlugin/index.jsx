@@ -4,16 +4,18 @@ const plugin = {
   id: 'demo',
   getUiSlotChanges() {
     return {
-      'side-bar-nav': [
+      'course-list': [
         {
           op: UiChangeOperation.Insert,
           widget: {
             id: 'login',
-            priority: 50,
-            content: {
-              url: '/login', icon: 'person-fill', label: 'Login',
-            },
+            priority: 1,
+            content: '******* this is a string we put in',
           },
+        },
+        {
+          op: UiChangeOperation.Hide,
+          widgetId: 'my-courses',
         },
       ],
     };

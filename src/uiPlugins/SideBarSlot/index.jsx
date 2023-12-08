@@ -1,6 +1,6 @@
 import { Icon } from '@edx/paragon';
 import { House, Star, InsertDriveFile } from '@edx/paragon/icons';
-import { UISlot } from '../pluginSlot';
+import { UiSlot } from '../pluginSlot';
 
 const defaultLinks = [
   {
@@ -25,7 +25,7 @@ const LeftSidebar = () => (
     {/* Site Logo */}
     {/* Search box */}
     {/* Main navigation links: */}
-    <UISlot
+    <UiSlot
       slotId="side-bar-nav"
       defaultContents={defaultLinks}
       renderWidget={(link) => (

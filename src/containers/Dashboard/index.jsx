@@ -13,6 +13,10 @@ import LoadingView from './LoadingView';
 import DashboardLayout from './DashboardLayout';
 import hooks from './hooks';
 import './index.scss';
+import { DefaultUiSlot, UiPluginsContext, UiSlot } from '../../uiPlugins/pluginSlot';
+import DemoPlugin from '../../uiPlugins/DemoPlugin';
+
+const defaultComponent = [{ id: 'my-courses', priority: 50, content: <CourseList /> }];
 
 export const Dashboard = () => {
   hooks.useInitializeDashboard();
@@ -21,6 +25,10 @@ export const Dashboard = () => {
   const hasAvailableDashboards = reduxHooks.useHasAvailableDashboards();
   const initIsPending = reduxHooks.useRequestIsPending(RequestKeys.initialize);
   const showSelectSessionModal = reduxHooks.useShowSelectSessionModal();
+
+  const enabledPlugins = [
+    DemoPlugin,
+  ];
 
   return (
     <div id="dashboard-container" className="d-flex flex-column p-2 pt-0">
@@ -36,7 +44,15 @@ export const Dashboard = () => {
           ? (<LoadingView />)
           : (
             <DashboardLayout sidebar={hasCourses ? LoadedSidebar : NoCoursesSidebar}>
-              <CourseList />
+              <UiPluginsContext.Provider value={enabledPlugins}>
+                <UiSlot
+                  slotId="course-list"
+                  defaultContents={defaultComponent}
+                  renderWidget={(widget) => (
+                    widget.content
+                  )}
+                />
+              </UiPluginsContext.Provider>
             </DashboardLayout>
           )}
       </div>
