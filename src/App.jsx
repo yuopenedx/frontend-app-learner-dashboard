@@ -31,6 +31,10 @@ import { getConfig } from '@edx/frontend-platform';
 import messages from './messages';
 import './App.scss';
 
+import LeftSidebar from './uiPlugins/SideBarSlot';
+import DemoPlugin from './uiPlugins/DemoPlugin';
+import { UiPluginsContext } from './uiPlugins/pluginSlot';
+
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
   const { formatMessage } = useIntl();
@@ -54,6 +58,11 @@ export const App = () => {
     }
     return null;
   };
+
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const enabledPlugins = [
+    DemoPlugin,
+  ];
 
   React.useEffect(() => {
     if (authenticatedUser?.administrator || getConfig().NODE_ENV === 'development') {
@@ -96,6 +105,9 @@ export const App = () => {
       <div>
         <AppWrapper>
           <LearnerDashboardHeader />
+          <UiPluginsContext.Provider value={enabledPlugins}>
+            <LeftSidebar />
+          </UiPluginsContext.Provider>
           <main>
             {hasNetworkFailure
               ? (
