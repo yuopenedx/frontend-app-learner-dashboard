@@ -8,12 +8,13 @@ import CourseList from 'containers/CourseList';
 
 import LoadedSidebar from 'containers/WidgetContainers/LoadedSidebar';
 import NoCoursesSidebar from 'containers/WidgetContainers/NoCoursesSidebar';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { UiPluginsContext, UiSlot } from '@edx/frontend-plugin-framework/src/plugins';
 
 import LoadingView from './LoadingView';
 import DashboardLayout from './DashboardLayout';
 import hooks from './hooks';
 import './index.scss';
-import { UiPluginsContext, UiSlot } from '../../uiPlugins/pluginSlot';
 import DemoPlugin from '../../uiPlugins/DemoPlugin';
 
 const defaultComponent = [{ id: 'my-courses', priority: 50, content: <CourseList /> }];

@@ -1,4 +1,5 @@
-import { UiChangeOperation } from '../pluginSlot';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { UiChangeOperation } from '@edx/frontend-plugin-framework/src/plugins';
 
 const plugin = {
   id: 'demo',

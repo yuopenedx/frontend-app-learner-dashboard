@@ -1,6 +1,7 @@
 import { Icon } from '@edx/paragon';
 import { House, Star, InsertDriveFile } from '@edx/paragon/icons';
-import { UiSlot } from '../pluginSlot';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { UiSlot } from '@edx/frontend-plugin-framework/src/plugins';
 
 const defaultLinks = [
   {
