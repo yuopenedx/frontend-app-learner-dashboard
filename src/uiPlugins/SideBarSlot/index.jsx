@@ -1,6 +1,7 @@
 import { Icon } from '@edx/paragon';
 import { House, Star, InsertDriveFile } from '@edx/paragon/icons';
-import { UiSlot } from '../pluginSlot';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { DirectPluginSlot } from '@edx/frontend-plugin-framework/src/plugins/directPlugins';
 
 const defaultLinks = [
   {
@@ -25,7 +26,7 @@ const LeftSidebar = () => (
     {/* Site Logo */}
     {/* Search box */}
     {/* Main navigation links: */}
-    <UiSlot
+    <DirectPluginSlot
       slotId="side-bar-nav"
       defaultContents={defaultLinks}
       renderWidget={(link) => (

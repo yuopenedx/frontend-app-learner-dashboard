@@ -1,12 +1,13 @@
-import { UiChangeOperation } from '../pluginSlot';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { DirectPluginOperations } from '@edx/frontend-plugin-framework/src/plugins/directPlugins';
 
 const plugin = {
   id: 'demo',
-  getUiSlotChanges() {
+  getDirectSlotChanges() {
     return {
       'course-list': [
         {
-          op: UiChangeOperation.Insert,
+          op: DirectPluginOperations.Insert,
           widget: {
             id: 'login',
             priority: 1,

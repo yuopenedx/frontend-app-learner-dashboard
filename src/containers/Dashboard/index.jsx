@@ -8,12 +8,13 @@ import CourseList from 'containers/CourseList';
 
 import LoadedSidebar from 'containers/WidgetContainers/LoadedSidebar';
 import NoCoursesSidebar from 'containers/WidgetContainers/NoCoursesSidebar';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { DirectPluginContext, DirectPluginSlot } from '@edx/frontend-plugin-framework/src/plugins/directPlugins';
 
 import LoadingView from './LoadingView';
 import DashboardLayout from './DashboardLayout';
 import hooks from './hooks';
 import './index.scss';
-import { UiPluginsContext, UiSlot } from '../../uiPlugins/pluginSlot';
 import DemoPlugin from '../../uiPlugins/DemoPlugin';
 
 const defaultComponent = [{ id: 'my-courses', priority: 50, content: <CourseList /> }];
@@ -27,9 +28,7 @@ export const Dashboard = () => {
   const showSelectSessionModal = reduxHooks.useShowSelectSessionModal();
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const enabledPlugins = [
-    DemoPlugin,
-  ];
+  const enabledPlugins = DemoPlugin;
 
   return (
     <div id="dashboard-container" className="d-flex flex-column p-2 pt-0">
@@ -45,15 +44,15 @@ export const Dashboard = () => {
           ? (<LoadingView />)
           : (
             <DashboardLayout sidebar={hasCourses ? LoadedSidebar : NoCoursesSidebar}>
-              <UiPluginsContext.Provider value={enabledPlugins}>
-                <UiSlot
+              <DirectPluginContext.Provider value={enabledPlugins}>
+                <DirectPluginSlot
                   slotId="course-list"
                   defaultContents={defaultComponent}
                   renderWidget={(widget) => (
                     widget.content
                   )}
                 />
-              </UiPluginsContext.Provider>
+              </DirectPluginContext.Provider>
             </DashboardLayout>
           )}
       </div>
