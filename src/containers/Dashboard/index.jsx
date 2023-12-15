@@ -13,6 +13,7 @@ import LoadingView from './LoadingView';
 import DashboardLayout from './DashboardLayout';
 import hooks from './hooks';
 import './index.scss';
+import LearnerRecord from '../../widgets/LearnerRecord/LearnerRecord';
 
 export const Dashboard = () => {
   hooks.useInitializeDashboard();
@@ -37,6 +38,7 @@ export const Dashboard = () => {
           : (
             <DashboardLayout sidebar={hasCourses ? LoadedSidebar : NoCoursesSidebar}>
               <CourseList />
+              <LearnerRecord />
             </DashboardLayout>
           )}
       </div>
